@@ -12,7 +12,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Note, the above license and copyright applies to this file only.
 package com.narxoz.rpg.lwjgl3;
 
 import com.badlogic.gdx.Version;
