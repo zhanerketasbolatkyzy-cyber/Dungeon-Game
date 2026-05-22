@@ -19,7 +19,7 @@ public class GameScreen implements Screen {
     private Texture background;
     private Texture heroPortrait;
 
-    // ── АНИМАЦИЯ ҮШІН ЖАҢА АЙНЫМАЛЫЛАР ───────────────────────────
+    // for animation
     private Texture heroIdle;
 
     private Texture[] heroWalkFrames;
@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
     private float animationTimer = 0f;
     private final float FRAME_DURATION = 0.15f; // Кадрлардың ауысу жылдамдығы
 
-    // ТРИГГЕРЛЕР: Шабуыл анимациясын бақылау
+
     private enum HeroState {
         IDLE,
         WALK,
@@ -40,10 +40,10 @@ public class GameScreen implements Screen {
     private HeroState heroState = HeroState.IDLE;
     private boolean isEnemyAttacking = false;
 
-    // ── КЕЙІПКЕРДІҢ ОРНЫ МЕН ЖЫЛДАМДЫҒЫ (ҚОЗҒАЛЫС) ──────────────
-    private float heroX = 120f; // Бастапқы Х орны
-    private float heroY = 220f; // Бастапқы Ү орны
-    private float heroSpeed = 250f; // Жылдамдығы (пиксель/секунд)
+    // move heros
+    private float heroX = 120f; // firstly plase X
+    private float heroY = 220f; // firstly plase Y
+    private float heroSpeed = 250f; // speed
 
     private BitmapFont bigFont, font, logFont, tabFont;
 
@@ -677,7 +677,7 @@ public class GameScreen implements Screen {
                 playerTurn = true;
                 return;
             }
-        } else if (enemyType.equals("boss3")) {
+        } else if (enemyType.equals("bossthree")) {
             if (Math.random() < 0.5) {
                 dmg *= 2;
                 battleLog = enemyName + " casts DARK BOLT! " + dmg + " damage!!";
