@@ -74,7 +74,7 @@ public class CharacterSelectScreen implements Screen {
         boolean click = Gdx.input.isButtonJustPressed(com.badlogic.gdx.Input.Buttons.LEFT);
 
         batch.begin();
-
+// set coler done 
         if (background != null) {
             batch.setColor(1, 1, 1, 0.30f);
             batch.draw(background, 0, 0, DungeonGame.WIDTH, DungeonGame.HEIGHT);
