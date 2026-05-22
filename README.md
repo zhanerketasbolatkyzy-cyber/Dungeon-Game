@@ -140,6 +140,9 @@ java -jar lwjgl3/build/libs/dungeon-rpg.jar
 ---
 
 ##  Authors
+Kanal Kazybek 
+Tasbolatkyzy Zhanerke
+
 
 Narxoz University — Final Project  
 `com.narxoz.rpg.dungeon`
