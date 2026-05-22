@@ -1,4 +1,4 @@
-# 🏰 Dungeon RPG
+#  Dungeon RPG
 
 > *"I came to save a princess. The walls whisper my name..."*
 
@@ -6,7 +6,7 @@ A turn-based dungeon RPG built with **LibGDX** (Java). Fight through 4 floors of
 
 ---
 
-## 🎮 Gameplay
+##  Gameplay
 
 You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
@@ -19,7 +19,7 @@ You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
 ---
 
-## ⚔️ Combat System
+##  Combat System
 
 ### Action Tabs
 
@@ -42,7 +42,7 @@ You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
 ---
 
-## 🧟 Bosses
+## Bosses
 
 | Floor | Boss | HP | ATK | Special |
 |-------|------|----|-----|---------|
@@ -53,8 +53,7 @@ You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
 ---
 
-## 🧙 Heroes
-
+##  Heroes
 Choose your fighter before entering the dungeon:
 
 | Hero | HP | ATK | DEF | Playstyle |
@@ -65,7 +64,7 @@ Choose your fighter before entering the dungeon:
 
 ---
 
-## 📖 Story & Lore
+##  Story & Lore
 
 Each floor begins with a **blood-stained parchment** — fragments of someone who came before you.
 
@@ -75,7 +74,7 @@ Defeat all four bosses to reach the true ending — and learn what the dungeon r
 
 ---
 
-## 🔊 Audio
+##  Audio
 
 | Sound | Trigger |
 |-------|---------|
@@ -88,7 +87,7 @@ Defeat all four bosses to reach the true ending — and learn what the dungeon r
 
 ---
 
-## 🗂️ Project Structure
+##  Project Structure
 
 ```
 dungeon-rpg/
@@ -113,7 +112,7 @@ dungeon-rpg/
 
 ---
 
-## 🚀 Running the Game
+##  Running the Game
 
 ### Requirements
 - Java 11+
@@ -132,7 +131,7 @@ java -jar lwjgl3/build/libs/dungeon-rpg.jar
 
 ---
 
-## 🛠️ Built With
+##  Built With
 
 - [LibGDX](https://libgdx.com/) — Java game framework
 - [LWJGL3](https://www.lwjgl.org/) — Desktop backend
@@ -140,7 +139,7 @@ java -jar lwjgl3/build/libs/dungeon-rpg.jar
 
 ---
 
-## 👨‍💻 Authors
+##  Authors
 
 Narxoz University — Final Project  
 `com.narxoz.rpg.dungeon`
