@@ -10,7 +10,7 @@ A turn-based dungeon RPG built with **LibGDX** (Java). Fight through 4 floors of
 
 You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
-- **Move** your hero across the battlefield with `←→` or `WASD`
+- **Move** your hero across the battlefield with `←→` or `WAD`
 - **Get close** to the enemy before attacking — range matters
 - **Choose your actions** through a tab-based combat panel
 - **Chain attacks** to build combos and unlock critical hits
