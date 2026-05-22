@@ -19,7 +19,6 @@ public class GameScreen implements Screen {
     private Texture background;
     private Texture heroPortrait;
 
-    // ── АНИМАЦИЯ ҮШІН ЖАҢА АЙНЫМАЛЫЛАР ───────────────────────────
     private Texture heroIdle;
 
     private Texture[] heroWalkFrames;
@@ -28,9 +27,7 @@ public class GameScreen implements Screen {
     private int currentHeroFrame = 0;
     private int currentEnemyFrame = 0;
     private float animationTimer = 0f;
-    private final float FRAME_DURATION = 0.15f; // Кадрлардың ауысу жылдамдығы
-
-    // ТРИГГЕРЛЕР: Шабуыл анимациясын бақылау
+    private final float FRAME_DURATION = 0.15f;
     private enum HeroState {
         IDLE,
         WALK,
@@ -40,27 +37,21 @@ public class GameScreen implements Screen {
     private HeroState heroState = HeroState.IDLE;
     private boolean isEnemyAttacking = false;
 
-    // ── КЕЙІПКЕРДІҢ ОРНЫ МЕН ЖЫЛДАМДЫҒЫ (ҚОЗҒАЛЫС) ──────────────
-    private float heroX = 120f; // Бастапқы Х орны
-    private float heroY = 220f; // Бастапқы Ү орны
-    private float heroSpeed = 250f; // Жылдамдығы (пиксель/секунд)
+    private float heroX = 120f;
+    private float heroY = 220f;
+    private float heroSpeed = 250f;
 
     private BitmapFont bigFont, font, logFont, tabFont;
 
-    // Hero stats
     private String heroName;
     private int heroHp, heroMaxHp, heroAtk, heroLevel = 1, heroXp = 0;
 
-    // Enemy stats
     private int enemyHp, enemyMaxHp, enemyAtk;
     private String enemyName;
     private String enemyType;
     private int enemyTurnCount = 0;
 
-    // Floor
     private int floor = 1;
-
-    // Battle state
     private String battleLog = "";
     private String subLog = "";
     private boolean playerTurn = true;
@@ -68,7 +59,6 @@ public class GameScreen implements Screen {
     private boolean won = false;
     private float enemyTimer = 0f;
 
-    // ── TAB PANEL SYSTEM ──────────────────────────────────────────
     private int activeTab = -1;
 
     private static final float TAB_Y = 10f;
@@ -85,9 +75,9 @@ public class GameScreen implements Screen {
     private static final Color[] TAB_COLORS = {Color.CYAN, new Color(0.7f, 0.3f, 1f, 1f), Color.ORANGE};
     private boolean isHeroAttacking = false;
     private static final String[][] SUB_LABELS = {
-        {"[1] QUICK", "[2] HEAVY"},          // ATTACK tab
-        {"[3] DRAIN", "[4] FIRE BOLT"},       // MAGIC tab
-        {"[H] HEAL", "[5] SCROLL"}           // ITEMS tab
+        {"[1] QUICK", "[2] HEAVY"},
+        {"[3] DRAIN", "[4] FIRE BOLT"},
+        {"[H] HEAL", "[5] SCROLL"}
     };
     private static final Color[][] SUB_COLORS = {
         {Color.CYAN, Color.ORANGE},
@@ -100,7 +90,6 @@ public class GameScreen implements Screen {
         {5, 6}
     };
 
-    // Lore notes
     private String[] floorNotes = {
         "\"I came to save a princess. The walls whisper my name...\"",
         "\"A corpse in armor identical to mine. I choose not to think about it.\"",
@@ -109,7 +98,6 @@ public class GameScreen implements Screen {
     };
     private boolean noteDismissed = false;
 
-    // ── CONSTRUCTOR ───────────────────────────────────────────────
     public GameScreen(DungeonGame game, String heroName, int heroHp, int heroAtk) {
         this.game = game;
         this.heroName = heroName;
@@ -137,14 +125,12 @@ public class GameScreen implements Screen {
             heroPortrait = null;
         }
 
-        // ── HERO IDLE ─────────────────────────────
         try {
             heroIdle = new Texture(Gdx.files.internal("Hero_idle.png"));
         } catch (Exception e) {
             heroIdle = null;
         }
 
-// ── HERO WALK ─────────────────────────────
         heroWalkFrames = new Texture[5];
 
         for (int i = 0; i < 5; i++) {
@@ -161,7 +147,6 @@ public class GameScreen implements Screen {
             }
         }
 
-// ── HERO ATTACK ───────────────────────────
         heroAttackFrames = new Texture[5];
 
         for (int i = 0; i < 5; i++) {
@@ -204,7 +189,7 @@ public class GameScreen implements Screen {
         heroState = HeroState.IDLE;
         isHeroAttacking = false;
         isEnemyAttacking = false;
-        heroX = 120f; // Қабат ауысқанда бастапқы орнына қайтару
+        heroX = 120f;
 
         if (enemyFrames != null) {
             for (Texture t : enemyFrames) {
@@ -265,7 +250,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    // ── RENDER ────────────────────────────────────────────────────
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.05f, 0.04f, 0.1f, 1);
@@ -308,7 +293,6 @@ public class GameScreen implements Screen {
         if (animationTimer >= FRAME_DURATION) {
             animationTimer = 0f;
 
-            // ── WALK ─────────────────────────────
             if (heroState == HeroState.WALK) {
 
                 currentHeroFrame++;
@@ -319,7 +303,6 @@ public class GameScreen implements Screen {
                 }
             }
 
-// ── ATTACK ───────────────────────────
             if (heroState == HeroState.ATTACK) {
 
                 currentHeroFrame++;
@@ -334,12 +317,11 @@ public class GameScreen implements Screen {
                 }
             }
 
-            // БОСС: Тек шабуыл кезінде ғана анимация жүреді
             if (isEnemyAttacking && enemyFrames != null && enemyFrames.length > 0) {
                 currentEnemyFrame++;
                 if (currentEnemyFrame >= enemyFrames.length) {
                     currentEnemyFrame = 0;
-                    isEnemyAttacking = false; // Шабуыл бітті, қатып тұру күйі
+                    isEnemyAttacking = false;
                 }
             }
         }
@@ -351,14 +333,11 @@ public class GameScreen implements Screen {
 
         batch.begin();
 
-        // Background
         if (background != null) {
             batch.setColor(1, 1, 1, 0.5f);
             batch.draw(background, 0, 0, DungeonGame.WIDTH, DungeonGame.HEIGHT);
             batch.setColor(1, 1, 1, 1);
         }
-
-        // ── ҰРЫС АЛАҢЫ ──
         if (noteDismissed) {
             Texture currentHeroTexture = null;
 
@@ -392,15 +371,12 @@ public class GameScreen implements Screen {
             }
         }
 
-        // ── TOP HUD ──────────────────────────────────────────────────
         fillRect(0f, 0f, 0f, 0.75f, 0, DungeonGame.HEIGHT - 90, DungeonGame.WIDTH, 90);
         fillRect(0.4f, 0.35f, 0.1f, 1f, 0, DungeonGame.HEIGHT - 91, DungeonGame.WIDTH, 2);
 
-        // FLOOR label
         bigFont.setColor(Color.GOLD);
         bigFont.draw(batch, "FLOOR " + floor, DungeonGame.WIDTH / 2f - 50, DungeonGame.HEIGHT - 8);
 
-        // HERO HUD block
         float portraitSize = 64f;
         float portraitX = 12f;
         float portraitY = DungeonGame.HEIGHT - 82f;
@@ -418,7 +394,6 @@ public class GameScreen implements Screen {
         logFont.setColor(new Color(1f, 0.7f, 0.2f, 1f));
         logFont.draw(batch, "ATK " + heroAtk, heroInfoX + 110, DungeonGame.HEIGHT - 52);
 
-        // ENEMY HUD block
         if (enemyMaxHp > 0) {
             float hudSpriteSize = 64f;
             float spriteX = DungeonGame.WIDTH - hudSpriteSize - 12f;
@@ -444,7 +419,6 @@ public class GameScreen implements Screen {
             logFont.draw(batch, "HP " + Math.max(enemyHp, 0) + "/" + enemyMaxHp, enemyBarX, DungeonGame.HEIGHT - 52);
         }
 
-        // ── LORE NOTE ──
         if (!noteDismissed) {
             fillRect(0.08f, 0.06f, 0.03f, 0.92f, 80, 180, DungeonGame.WIDTH - 160, 180);
             fillRect(0.7f, 0.6f, 0.1f, 1f, 80, 356, DungeonGame.WIDTH - 160, 3);
@@ -459,19 +433,16 @@ public class GameScreen implements Screen {
             return;
         }
 
-        // ── BATTLE LOG ──
         fillRect(0, 0, 0, 0.55f, 0, 130, DungeonGame.WIDTH, 75);
         logFont.setColor(Color.WHITE);
         logFont.draw(batch, battleLog, 20, 192);
         logFont.setColor(Color.LIGHT_GRAY);
         logFont.draw(batch, subLog, 20, 162);
 
-        // ── ACTION PANEL ──
         if (playerTurn && !battleOver) {
             drawTabPanel();
         }
 
-        // ── BATTLE OVER ──
         if (battleOver) {
             if (won) {
                 if (floor == 4) {
@@ -637,7 +608,7 @@ public class GameScreen implements Screen {
                 subLog = heroName + " HP: " + heroHp + "/" + heroMaxHp;
                 playerTurn = false;
                 enemyTimer = 1.0f;
-                isHeroAttacking = false; // Потция ішкенде шабуыл анимациясы керек емес
+                isHeroAttacking = false;
                 return;
             }
             case 6: {

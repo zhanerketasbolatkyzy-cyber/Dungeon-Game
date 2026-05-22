@@ -35,13 +35,11 @@ public class MainMenuScreen implements Screen {
         batch.draw(background, 0, 0, DungeonGame.WIDTH, DungeonGame.HEIGHT);
         batch.end();
 
-        // START → CharacterSelect
         if (mx > btnStartX && mx < btnStartX + btnStartW
             && my > btnStartY && my < btnStartY + btnStartH && click) {
             game.setScreen(new CharacterSelectScreen(game));
         }
 
-        // EXIT
         if (mx > btnExitX && mx < btnExitX + btnExitW
             && my > btnExitY && my < btnExitY + btnExitH && click) {
             Gdx.app.exit();
