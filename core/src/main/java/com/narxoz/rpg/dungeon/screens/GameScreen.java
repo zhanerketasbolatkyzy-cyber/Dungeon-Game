@@ -28,6 +28,14 @@ public class GameScreen implements Screen {
     private int currentEnemyFrame = 0;
     private float animationTimer = 0f;
     private final float FRAME_DURATION = 0.15f;
+
+
+
+    //HeroState (IDLE, WALK, ATTACK)
+    // State Enumeration: Determines the current action of
+    // the player (standing, moving, or attacking).
+    // It ensures the correct animation frame is selected
+    // based on the player's behavior.
     private enum HeroState {
         IDLE,
         WALK,
@@ -35,27 +43,40 @@ public class GameScreen implements Screen {
     }
 
     private HeroState heroState = HeroState.IDLE;
-    private boolean isEnemyAttacking = false;
 
+
+    //A boolean flag that tracks whether the enemy is
+    // currently in the middle of an attack animation sequence.
+    // It locks other gameplay actions until the attack animation
+    // completes.
+    private boolean isEnemyAttacking = false;
     private float heroX = 120f;
     private float heroY = 220f;
     private float heroSpeed = 250f;
-
     private BitmapFont bigFont, font, logFont, tabFont;
-
     private String heroName;
+
+    //These variables are declared at the top of the
+    // class to establish the foundational stats of the
+    // character upon initialization, establishing a baseline
+    // for combat and progression systems.
     private int heroHp, heroMaxHp, heroAtk, heroLevel = 1, heroXp = 0;
 
+    //These primitive states are initialized at the global
+    // class level to instantiate the dynamic attributes of
+    // the active boss, seed the progression loop, and control
+    // the primary engine sequence.
     private int enemyHp, enemyMaxHp, enemyAtk;
     private String enemyName;
     private String enemyType;
     private int enemyTurnCount = 0;
-
     private int floor = 1;
     private String battleLog = "";
     private String subLog = "";
     private boolean playerTurn = true;
     private boolean battleOver = false;
+
+
     private boolean won = false;
     private float enemyTimer = 0f;
 
@@ -256,26 +277,24 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0.05f, 0.04f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+        //This code handles the Input Polling system.
+        // It detects key presses, updates the character's
+        // position on the screen, and automatically switches
+        // the animation state between WALK and IDLE accordingly.
         if (noteDismissed && playerTurn && !battleOver) {
-
             boolean moving = false;
-
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) ||
                 Gdx.input.isKeyPressed(Input.Keys.A)) {
-
                 heroX -= heroSpeed * delta;
                 moving = true;
             }
-
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ||
                 Gdx.input.isKeyPressed(Input.Keys.D)) {
-
                 heroX += heroSpeed * delta;
                 moving = true;
             }
-
             if (!isHeroAttacking) {
-
                 if (moving) {
                     heroState = HeroState.WALK;
                 } else {
@@ -339,23 +358,26 @@ public class GameScreen implements Screen {
             batch.setColor(1, 1, 1, 1);
         }
         if (noteDismissed) {
+
+            //This block performs dynamic texture binding
+            // based on the character's state.
+            // It selects the exact frame to render from
+            // the corresponding animation array and draws
+            // it onto the screen at the designated coordinates
             Texture currentHeroTexture = null;
 
             if (heroState == HeroState.IDLE) {
-
                 currentHeroTexture = heroIdle;
             } else if (heroState == HeroState.WALK) {
-
                 currentHeroTexture = heroWalkFrames[currentHeroFrame];
             } else if (heroState == HeroState.ATTACK) {
-
                 currentHeroTexture = heroAttackFrames[currentHeroFrame];
             }
-
             if (currentHeroTexture != null) {
-
                 batch.draw(currentHeroTexture, heroX, heroY, 250, 250);
             }
+
+
             if (enemyFrames != null && enemyFrames[currentEnemyFrame] != null && enemyHp > 0) {
                 float size = floor == 4 ? 300f : 250f;
                 float enemyX = DungeonGame.WIDTH - size - 120;
@@ -387,12 +409,19 @@ public class GameScreen implements Screen {
 
         float heroInfoX = portraitX + portraitSize + 10f;
         font.setColor(Color.WHITE);
+
+        //This section maps the structural data from
+        // memory into user-readable UI elements.
+        // The rendering engine draws live string interpretations
+        // of the player's status updates directly onto
+        // the HUD layer.
         font.draw(batch, heroName + "  LVL " + heroLevel, heroInfoX, DungeonGame.HEIGHT - 14);
         drawBar(heroInfoX, DungeonGame.HEIGHT - 44, 210, 14, heroHp, heroMaxHp, Color.GREEN);
         logFont.setColor(new Color(0.5f, 1f, 0.5f, 1f));
         logFont.draw(batch, "HP " + heroHp + "/" + heroMaxHp, heroInfoX, DungeonGame.HEIGHT - 52);
         logFont.setColor(new Color(1f, 0.7f, 0.2f, 1f));
         logFont.draw(batch, "ATK " + heroAtk, heroInfoX + 110, DungeonGame.HEIGHT - 52);
+
 
         if (enemyMaxHp > 0) {
             float hudSpriteSize = 64f;
@@ -569,6 +598,11 @@ public class GameScreen implements Screen {
         }
     }
 
+    //his function initializes the hero's attack
+    // phase when an action button is triggered.
+    // It updates the core variables to locked combat
+    // state and resets the animation components to
+    // ensure a clean visual cycle.
     private void onAction(int action) {
         if (!playerTurn || battleOver) return;
         isHeroAttacking = true;
