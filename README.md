@@ -1,33 +1,148 @@
-# ВГDungeonRPG
+#  Dungeon RPG
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
+> *"I came to save a princess. The walls whisper my name..."*
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
+A turn-based dungeon RPG built with **LibGDX** (Java). Fight through 4 floors of increasingly dangerous bosses, uncover a dark twist ending, and discover that the dungeon had its own plans for you all along.
 
-## Platforms
+---
 
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
+##  Gameplay
 
-## Gradle
+You descend into a dungeon to rescue a princess — but nothing is as it seems.
 
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
+- **Move** your hero across the battlefield with `←→` or `WAD`
+- **Get close** to the enemy before attacking — range matters
+- **Choose your actions** through a tab-based combat panel
+- **Chain attacks** to build combos and unlock critical hits
+- **Survive** 4 floors of bosses, each with unique abilities
+- **Discover** the true nature of the dungeon in the final cutscene
 
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `test`: runs unit tests (if any).
+---
 
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+##  Combat System
+
+### Action Tabs
+
+| Tab | Key | Skills |
+|-----|-----|--------|
+| ATTACK | `A` | `[1]` Quick Strike · `[2]` Heavy Blow |
+| MAGIC  | `M` | `[3]` Drain · `[4]` Fire Bolt |
+| ITEMS  | `I` | `[H]` Heal Potion · `[5]` Scroll of Destruction |
+
+### Combo System
+- Each consecutive attack builds your **combo counter**
+- Every stack adds **+10% damage**
+- At **3+ combo** → 25% chance for a **CRITICAL HIT** (×2 damage)
+- Using a potion breaks your combo
+
+### Attack Range
+- You must **walk close** to the enemy to deal damage
+- A range indicator (green/red line) shows whether you're in range
+- If too far: *"TOO FAR! Move closer!"* — your turn is not consumed
+
+---
+
+## Bosses
+
+| Floor | Boss | HP | ATK | Special |
+|-------|------|----|-----|---------|
+| 1 | **Skeleton** | 35 | 6 | — |
+| 2 | **Zombie** | 50 | 8 | Regenerates HP every 3 turns |
+| 3 | **Dark Mage** | 65 | 12 | 50% chance to cast Dark Bolt (×2 dmg) |
+| 4 | **Dragon Boss** | 120 | 18 | 30% chance to Breathe Fire (×3 dmg) |
+
+---
+
+##  Heroes
+Choose your fighter before entering the dungeon:
+
+| Hero | HP | ATK | DEF | Playstyle |
+|------|----|-----|-----|-----------|
+| **Knight** | 120 | 18 | 5 | Balanced warrior |
+| **Rogue** | 80 | 28 | 2 | Glass cannon |
+| **Paladin** | 150 | 12 | 8 | Holy tank |
+
+---
+
+##  Story & Lore
+
+Each floor begins with a **blood-stained parchment** — fragments of someone who came before you.
+
+> *"A corpse in armor identical to mine. I choose not to think about it."*
+
+Defeat all four bosses to reach the true ending — and learn what the dungeon really wanted from you.
+
+---
+
+##  Audio
+
+| Sound | Trigger |
+|-------|---------|
+| `attack.wav` | Player attacks |
+| `hit.wav` | Player takes damage |
+| `death.wav` | Boss or hero dies |
+| `heal.wav` | Potion used |
+| `step.wav` | Hero walks |
+| `bg_dungeon.ogg` | Background music (loops) |
+
+---
+
+##  Project Structure
+
+```
+dungeon-rpg/
+├── core/src/main/java/com/narxoz/rpg/dungeon/
+│   ├── DungeonGame.java              # Entry point
+│   └── screens/
+│       ├── MainMenuScreen.java       # Main menu
+│       ├── CharacterSelectScreen.java # Hero selection
+│       ├── GameScreen.java           # Core gameplay
+│       └── GameOverScreen.java       # Death / ending
+├── lwjgl3/                           # Desktop launcher
+└── assets/
+    ├── battle_bg.png
+    ├── Hero_idle.png
+    ├── Hero_walk/
+    ├── Hero_attack/
+    ├── Boss_attack/  Boss2_attack/  Boss3_attack/  Boss4_attack/
+    └── sounds/
+        ├── attack.wav  hit.wav  death.wav  heal.wav  step.wav
+        └── bg_dungeon.ogg
+```
+
+---
+
+##  Running the Game
+
+### Requirements
+- Java 11+
+- Gradle
+
+### Run
+```bash
+./gradlew lwjgl3:run
+```
+
+### Build JAR
+```bash
+./gradlew lwjgl3:jar
+java -jar lwjgl3/build/libs/dungeon-rpg.jar
+```
+
+---
+
+##  Built With
+
+- [LibGDX](https://libgdx.com/) — Java game framework
+- [LWJGL3](https://www.lwjgl.org/) — Desktop backend
+- Java 11
+
+---
+
+##  Authors
+Kanal Kazybek 
+Tasbolatkyzy Zhanerke
+
+
+Narxoz University — Final Project  
+`com.narxoz.rpg.dungeon`
