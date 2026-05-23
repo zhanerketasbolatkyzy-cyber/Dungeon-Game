@@ -1,0 +1,35 @@
+@startuml
+
+package dungeon {
+
+class VisualGame {
++ render()
++ drawGame()
++ handleInput()
+}
+
+class Player {
++ hp
++ move()
++ attack()
+}
+
+class Boss {
++ hp
++ fireAttack()
+}
+
+class Assets {
++ loadAssets()
+}
+
+VisualGame --> Player
+VisualGame --> Boss
+VisualGame --> Assets
+
+Player --> Boss : attack
+Boss --> Player : damage
+
+}
+
+@enduml
